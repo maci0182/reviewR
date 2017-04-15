@@ -8,8 +8,7 @@
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
-
+    http://www.apache.org/licenses/<LICENSE-2 class="0"></LICENSE-2>
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,85 +36,173 @@
         <title>ReviewR</title>
     </head>
     <body>
-        <header class="bar bar-nav">
-           <a class="btn btn-link btn-nav pull-right" href="#reviewModal">
-               Add Review
-               <span class="icon icon-compose"></span>
-           </a>
-        </header>
-        
-        <div class="content" id="listReviewPag">
-            <ul class="table-view" id="contact-list">
-                <li class="table-view-cell media">
-                    <a class="navigate-right" href="deleteModal">
-                        <img class="media-object pull-left" src="">
-                        <div class="media-body">
-                            List Item one
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        
-        <div id="reviewModal" class="modal">
-            <header class="bar bar-nav">
-                <a class="icon icon-close pull-right" href="reviewModal"></a>
-                <h1 class="title">Add Review</h1>
-            </header>
-            <div class="content">
-                <div class="content-padded">
-                    <div class="mid-thumb">
-                        <img src="" id="thumbnail">
+       <header class="bar bar-nav">
+
+    <a class="btn btn-link btn-nav pull-right" href="#writeReview">
+
+Write Review
+
+<span class="icon icon-compose"></span>
+
+</a>
+
+    <h1 class="title">ReviewR</h1>
+
+</header>
+
+
+<div class="content">
+
+    <ul class="table-view" id="review-list">
+
+
+    </ul>
+
+</div>
+
+
+<div id="writeReview" class="modal">
+
+    <header class="bar bar-nav">
+
+        <a id="xButton" class="icon icon-close pull-right" href="#writeReview"></a>
+
+        <h1 class="title">Add Review</h1>
+
+    </header>
+
+
+    <div class="content">
+
+        <div class="content-padded">
+
+            <form id="writeReviewContent" class="input-group">
+
+                <div class="input-row">
+
+                    <label>Item:</label>
+
+                    <input id="itemName" type="text" placeholder="Item" />
+
+                </div>
+
+                <div id="testingID" class="input-row">
+
+                    <label>Rating:</label>
+
+                    <div class="stars">
+
+                        <span class="star">&nbsp;</span>
+
+                        <span class="star">&nbsp;</span>
+
+                        <span class="star">&nbsp;</span>
+
+                        <span class="star">&nbsp;</span>
+
+                        <span class="star">&nbsp;</span>
+
                     </div>
-                    <form class="input-group">
-                        <div class="input-row">
-                            <label>Item</label>
-                            <input type="text" id="name" placeholder="Full Name" />
-                        </div>
-                        <div class="input-row">
-                            <label>Rating</label>
-                            <div class="stars">
-                                <span class="star">&nbsp;</span>
-                                <span class="star">&nbsp;</span>
-                                <span class="star">&nbsp;</span>
-                                <span class="star">&nbsp;</span>
-                                <span class="star">&nbsp;</span>
-                            </div>
-                        </div>
-                    </form>
-                    <p class="content-padded">
-                        <button class="btn btn-primary btn-block">
-                            <span class="icon icon-play"></span>Take a Picture
-                        </button>
-                        <button class="btn btn-block" id="cancel">
-                            <span class="icon icon-close"></span>Cancel
-                        </button>
-                        <button class="btn btn-positive btn-block btn-outlined" id="save">
-                            <span class="icon icon-check"></span>Save
-                        </button>
-                    </p>
+
                 </div>
-            </div>
-        </div>
-        
-        <div id="deleteModal" class="modal">
-            <header class="bar bar-nav">
-                <a class="icon icon-close pull-right" href="deleteModal"></a>
-                <h1 class="title">Delete Review</h1>
-                <a class="icon icon-left-nav pull-right" href="#"></a>
-            </header>
-            
-            <div class="content" id="deleteReview">
-                <div class="content-padded">
-                    <p class="content-padded"></p>
-                    <p class="content-padded">
-                        <button class="btn btn-negative btn-block" id="delete">
-                            <span class="icon icon-check"></span> Delete
-                        </button>
-                    </p>
+
+                <div>
+
+                    <img id="myImage" />
+
                 </div>
-            </div>
+
+            </form>
+
+
+            <p class="content-padded">
+
+                <button id="pictureBtn" class="btn btn-positive btn-block">
+
+<span class="icon icon-play"></span>
+
+Take Picture 
+
+</button>
+
+                <button id="cancelBtn" class="btn btn-negative btn-block">
+
+<span class="icon icon-close"></span>
+
+Cancel 
+
+</button>
+
+                <button id="saveBtn" class="btn btn-primary btn-block">
+
+<span class="icon icon-check"></span>
+
+Save 
+
+</button>
+
+            </p>
+
         </div>
+
+    </div>
+
+</div>
+
+
+<div id="deleteReview" class="modal">
+
+    <header class="bar bar-nav">
+
+        <a id="closeDeleteMenu" class="icon icon-close pull-right" href="#deleteReview"></a>
+
+        <h1 class="title">Current Review</h1>
+
+    </header>
+
+
+    <div class="content">
+
+        <div>
+
+            <img id="reviewImageDisplay" />
+
+        </div>
+
+        <div class="input-row">
+
+            <label id="itemNameDisplay">Item:</label>
+
+        </div>
+
+        <div id="testingID" class="input-row">
+
+            <label>Rating:</label>
+
+            <div id="starsCurrent" class="stars">
+
+            </div>
+
+        </div>
+
+
+        <p class="content-padded">
+
+            <button id="deleteBtn" class="btn btn-primary btn-block btn-negative">
+
+<span class="icon icon-close"></span>
+
+Delete 
+
+</button>
+
+        </p>
+
+    </div>
+
+</div>
+
+</div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/ratchet.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
