@@ -48,6 +48,7 @@ function onDeviceReady() {
 function saveToLocalStorage() {
 
     localStorage.setItem("localStorageKey", JSON.stringify(reviewList));
+    console.log("Items are saved");
 
 }
 
@@ -56,13 +57,13 @@ function getFromLocalSorage() {
 
     if (!localStorage.getItem("localStorageKey")) {
 
-        console.log("No data found");
+        console.log("OOOPPSSSS");
 
     } else {
 
         reviewList = JSON.parse(localStorage.getItem("localStorageKey"));
 
-        console.log("Data retrived from LS");
+        console.log("Data is " + reviewList);
 
     }
 }

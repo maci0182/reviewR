@@ -10,10 +10,10 @@ document.addEventListener('deviceready', onDeviceReady);
 
 
 function onDeviceReady() {
-
-    console.log("Ready");
+    // For the Notification
     var localNote = cordova.plugins.notification.local;
     console.log("Cordova Notification " + localNote);
+    
     let saveButton = document.getElementById("saveBtn");
     
     saveButton.addEventListener("click", saveReview);
@@ -39,12 +39,34 @@ function onDeviceReady() {
     displayReviews();
 
     cordova.plugins.notification.local.registerPermission(function (granted) {
-     console.log('Permission has been granted: ' + granted);
+    console.log('Permission has been granted: ' + granted);
 });
 
 
 }
 
+function saveToLocalStorage() {
+
+    localStorage.setItem("localStorageKey", JSON.stringify(reviewList));
+    console.log("Items are saved");
+
+}
+
+
+function getFromLocalSorage() {
+
+    if (!localStorage.getItem("localStorageKey")) {
+
+        console.log("OOOPPSSSS");
+
+    } else {
+
+        reviewList = JSON.parse(localStorage.getItem("localStorageKey"));
+
+        console.log("Data is " + reviewList);
+
+    }
+}
 
 function cancelModal() {
 
@@ -71,30 +93,30 @@ function cancelModal() {
 
 function saveReview() {
 
-    let itemNameToBeSaved = document.getElementById("itemName").value;
+    let nameSaved = document.getElementById("itemName").value;
 
-    let ratingToBeSaved = rating;
+    let ratingSaved = rating;
 
     imageFromFile = document.getElementById("myImage").src;
 
-    let timeStamp = new Date().getTime() / 1000;
+    let currentTime = new Date().getTime() / 1000;
 
 
     let review = {
-        id: timeStamp,
+        id: currentTime,
 
-        name: itemNameToBeSaved,
+        name: nameSaved,
 
-        rating: ratingToBeSaved,
+        rating: ratingSaved,
 
         img: imageFromFile
 
     };
 
     cordova.plugins.notification.local.schedule({
-    title: itemNameToBeSaved,
-    text:  "Your ratings are " + ratingToBeSaved + " stars.",
-    at: timeStamp,
+    title: nameSaved,
+    text:  "Your ratings are " + ratingSaved + " stars.",
+    at: currentTime,
     
 });
    
@@ -108,7 +130,6 @@ function saveReview() {
     
     cordova.plugins.notification.local.on("click", function (notification) {
     alert(notification.text);
-    navigator.vibrate(3000);
 });
 }
 
@@ -146,18 +167,15 @@ function displayReviews() {
 
 
     let list = document.getElementById("review-list");
+    console.log("The list item is " + list);
 
     list.innerHTML = "";
 
-
-    let length = reviewList.length;
-
-
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < reviewList.length; i++) {
 
 
         let li = document.createElement("li");
-
+        console.log("li " + li);
         li.className = "table-view-cell media";
 
         li.setAttribute("dataId", reviewList[i].id);
@@ -192,30 +210,19 @@ function displayReviews() {
 
 
         div.appendChild(pName);
-
-
-        console.log("review list rating");
-
-        console.log(reviewList[i].rating);
-
-
-        let starLength = reviewList[i].rating;
-
-
-        for (let n = 0; n < starLength; n++) {
+        console.log("List rating " + reviewList[i].rating);
+        for (let n = 0; n < reviewList[i].rating; n++) {
 
             let spanRating = document.createElement("span");
 
             spanRating.classList = "star";
-
-            //spanRating.textContent = "&nbsp;";
 
             div.appendChild(spanRating);
 
         }
 
 
-        a.addEventListener("touchstart", openReview);
+        a.addEventListener("touchstart", reviewsModal);
 
 
         a.appendChild(img);
@@ -231,16 +238,10 @@ function displayReviews() {
 }
 
 
-function openReview(ev) {
-
-
-    console.log(ev);
-
-    console.log(ev.target.parentElement.attributes.dataId.nodeValue);
-
+function reviewsModal(ev) {
     currentReview = ev.target.parentElement.attributes.dataId.nodeValue;
 
-    console.log(currentReview);
+    console.log("The current Review is " + currentReview);
 
 
     document.getElementById("closeDeleteMenu").addEventListener("touchstart", function() {
@@ -252,12 +253,7 @@ function openReview(ev) {
         value = 0;
 
     })
-
-
-
-    let length = reviewList.length;
-
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < reviewList.length; i++) {
 
         if (currentReview == reviewList[i].id) {
 
@@ -289,20 +285,12 @@ function openReview(ev) {
 
 
 function deleteReview() {
-
-    let length = reviewList.length;
-
-    for (let i = 0; i < length; i++) {
-
-        console.log(currentReview);
-
-        console.log(reviewList[i].id);
-
+    for (let i = 0; i < reviewList.length; i++) {
         if (currentReview == reviewList[i].id) {
 
             reviewList.splice(i, 1);
 
-            console.log(reviewList);
+            console.log("After Deleting the Review " + reviewList);
 
             break;
 
@@ -351,15 +339,15 @@ function rateStars() {
 function onSuccess(imageURI) {
 
     var image = document.getElementById('myImage');
-
+    console.log("Image is " + image);
     image.src = "data:image/jpeg;base64," + imageURI;
-
+    console.log("SRC " +image.src);
 }
 
 
 function onFail(message) {
 
-    console.log('Failed because: ' + message);
+    console.log("Failed " + message);
 
 }
 
@@ -369,15 +357,12 @@ function addListeners() {
     [].forEach.call(stars, function(star, index) {
 
         star.addEventListener('click', (function(idx) {
-
-            console.log('adding listener', index);
-
             return function() {
 
                 rating = idx + 1;
 
-                console.log('Rating is now', rating)
-
+                console.log("Rating is now " + rating);
+                
                 setRating();
 
             }
@@ -398,13 +383,11 @@ function setRating() {
 
             star.classList.add('rated');
 
-            console.log('added rated on', index);
+            
 
         } else {
 
             star.classList.remove('rated');
-
-            console.log('removed rated on', index);
 
         }
 
@@ -413,24 +396,3 @@ function setRating() {
 }
 
 
-function saveToLocalStorage() {
-
-    localStorage.setItem("localStorageKey", JSON.stringify(reviewList));
-
-}
-
-
-function getFromLocalSorage() {
-
-    if (!localStorage.getItem("localStorageKey")) {
-
-        console.log("No data found");
-
-    } else {
-
-        reviewList = JSON.parse(localStorage.getItem("localStorageKey"));
-
-        console.log("Data retrived from LS");
-
-    }
-}
