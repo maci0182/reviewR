@@ -27,4 +27,4 @@ Make the button disappear and be replaced with the image after the picture is ta
 We will be using the cordova-plugin-camera plugin to accomplish this.
 
 
-[linkname](https://www.screencast.com/t/JQQzkJlWr)
+[![IMAGE ALT TEXT HERE](https://www.screencast.com/t/JQQzkJlWr)](https://www.screencast.com/t/JQQzkJlWr)
