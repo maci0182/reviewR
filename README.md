@@ -28,4 +28,4 @@ We will be using the cordova-plugin-camera plugin to accomplish this.
 
 
 [![Demo CountPages alpha](https://www.screencast.com/t/JQQzkJlWr)](https://www.screencast.com/t/JQQzkJlWr)
-iframe width="854" height="480" src="https://www.screencast.com/t/JQQzkJlWr" frameborder="0" allowfullscreen></iframe>
+<iframe width="854" height="480" src="https://www.screencast.com/t/JQQzkJlWr" frameborder="0" allowfullscreen></iframe>
